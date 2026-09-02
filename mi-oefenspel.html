@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MI-Gym · Motiverende gespreksvoering</title>
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --paper: #fffdf8;
+      --ink: #1c1915;
+      --muted: #5c564c;
+      --line: #e4d9c8;
+      --good: #2f6f4e;
+      --good-bg: #e7f4ec;
+      --mid: #8a5a12;
+      --mid-bg: #f8eedc;
+      --bad: #8b2e2e;
+      --bad-bg: #f8e6e4;
+      --accent: #2b4a6f;
+      --accent-2: #c45c26;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #f7e7d2 0%, transparent 50%),
+        radial-gradient(900px 400px at 100% 0%, #dce6f0 0%, transparent 45%),
+        var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 28px 18px 80px; }
+    header.app {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 12px; margin-bottom: 22px;
+    }
+    .brand { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-family: ui-sans-serif, system-ui, sans-serif; }
+    h1 { font-size: clamp(1.6rem, 4vw, 2.15rem); margin: 4px 0 0; font-weight: 600; }
+    .hud {
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
+      font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px;
+    }
+    .pill {
+      background: var(--paper); border: 1px solid var(--line);
+      padding: 6px 10px; border-radius: 999px;
+    }
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 22px 18px;
+      box-shadow: 0 10px 30px rgba(80, 50, 20, .06);
+    }
+    .kicker { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .client {
+      font-size: 1.22rem; line-height: 1.45; margin: 0 0 8px;
+    }
+    .meta { color: var(--muted); font-size: .95rem; margin-bottom: 18px; }
+    button.opt, button.cta {
+      display: block; width: 100%; text-align: left;
+      font: inherit; cursor: pointer; border-radius: 14px;
+      padding: 13px 14px; margin: 8px 0; transition: transform .08s ease, background .15s;
+    }
+    button.opt {
+      background: #faf7f1; border: 1px solid var(--line); color: var(--ink);
+    }
+    button.opt:hover { background: #fff; transform: translateY(-1px); }
+    button.opt[disabled] { opacity: .72; cursor: default; transform: none; }
+    button.cta {
+      background: var(--accent); color: #fff; border: 0; text-align: center;
+      font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600;
+    }
+    button.cta.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .row .cta { flex: 1; min-width: 140px; }
+    .fb { margin-top: 14px; padding: 14px; border-radius: 12px; line-height: 1.45; }
+    .fb.good { background: var(--good-bg); }
+    .fb.mid { background: var(--mid-bg); }
+    .fb.bad { background: var(--bad-bg); }
+    .tag {
+      display: inline-block; font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .good .tag { color: var(--good); }
+    .mid .tag { color: var(--mid); }
+    .bad .tag { color: var(--bad); }
+    .bars { display: grid; gap: 8px; margin: 16px 0; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; }
+    .bar-label { display: flex; justify-content: space-between; }
+    .track { height: 8px; background: #eee6d8; border-radius: 99px; overflow: hidden; }
+    .fill { height: 100%; background: var(--accent); width: 0; transition: width .4s ease; }
+    .fill.en { background: #3d6b8a; }
+    .fill.fo { background: #2f6f4e; }
+    .fill.on { background: var(--accent-2); }
+    .fill.pl { background: #6b4a8a; }
+    ul.tips { margin: 8px 0 0 18px; }
+    .grid2 { display: grid; gap: 10px; }
+    @media (min-width: 640px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+    .choice-card {
+      border: 1px solid var(--line); border-radius: 14px; padding: 14px; cursor: pointer; background: #faf7f1;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    .choice-card:hover { background: #fff; }
+    .choice-card h3 { margin: 0 0 6px; font-size: 1rem; font-family: Georgia, serif; }
+    .small { color: var(--muted); font-size: .9rem; line-height: 1.4; }
+    footer.note { margin-top: 18px; color: var(--muted); font-size: .85rem; font-family: ui-sans-serif, system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="app">
+      <div>
+        <div class="brand">MBO Sociaal Werk · niveau 4</div>
+        <h1>MI-Gym</h1>
+      </div>
+      <div class="hud">
+        <div class="pill" id="hud-case">Start</div>
+        <div class="pill" id="hud-score">Score 0</div>
+      </div>
+    </header>
+    <main class="card" id="app"></main>
+    <footer class="note">Oefenspel bij de vier stappen uit de les: engageren, focussen, ontlokken, plannen. Gebaseerd op de eindopdracht-casussen. Geen echte cliëntgegevens.</footer>
+  </div>
+  <script>
+    const KEYS = ["en","fo","on","pl"];
+    const CASES = [
+      {
+        id: "amir",
+        title: "Casus 1 · Amir · school",
+        who: "Amir, 15 jaar. Derde klas. Cijfers zakken, spijbelt, gamed veel. Moeder maakt zich zorgen. Hij wordt snel boos als je hem aanspreekt. Fase van verandering: vooral erkenning + begin van verkenning (school kan hem niks schelen, wél ‘iets cools’ later).",
+        steps: [
+          {
+            fase: "Stap 1 · Engageren",
+            doel: "Contact, veiligheid, acceptatie. Nog geen plan. Non-verbaal denk je: open houding, geen verhoor.",
+            client: "Wéér zo’n gesprek. School kan me niks schelen. En bemoei je niet met mijn kamer, daar gaat het toch om gamen.",
+            hint: "Hij voelt zich aangevallen. Eerst relatie. Geen waarom-vraag, geen regie overnemen.",
+            options: [
+              { t: "Waarom spijbel je dan als je later iets cools wilt worden?", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Valkuil uit de les: de waarom-vraag klinkt als verwijt. Hij klapt dicht. Beter: ‘Wat maakt school nu zo zwaar?’" },
+              { t: "Ik hoor dat je er niet op zit te wachten. Snap ik. Jij bepaalt wat je deelt. Hoe is het voor je om hier te zitten?", q: "good", pts: {en:3,fo:0,on:1,pl:0,s:9},
+                fb: "Engageren volgens de rubric: welkom, veiligheid, autonomie. Open vraag zonder druk. Goede start voor de opname." },
+              { t: "Laten we meteen afspreken dat je voortaan naar alle lessen gaat.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Regie overnemen en te vroeg plannen. Stap 1 is contact, geen contract." },
+              { t: "Vervelend voor je moeder. Zij belt steeds omdat ze zich zorgen maakt.", q: "mid", pts: {en:1,fo:0,on:0,pl:0,s:3},
+                fb: "Je praat óver hem via moeder. Werk aan de relatie mét Amir, niet als boodschapper van thuis." }
+            ]
+          },
+          {
+            fase: "Stap 2 · Focussen",
+            doel: "Samen bepalen waar het gesprek over gaat. Onderzoek welk leefgebied wringt. Open vragen + reflectie.",
+            client: "Game designer, dát zou cool zijn. School is alleen saai en ze zeuren. Thuis zeggen ze dat ik lui ben.",
+            hint: "Er zijn meerdere onderwerpen. Kies samen een focus, vul hem niet in.",
+            options: [
+              { t: "We gaan het over je spijbelen hebben, want daar ligt het probleem.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Jij kiest het doel. Rubric stap 2: je bepaalt samen waar het gesprek over gaat." },
+              { t: "Ik hoor game designer, saaie school en het label lui. Wat zou dit gesprek voor jou nuttig maken?", q: "good", pts: {en:1,fo:3,on:1,pl:0,s:9},
+                fb: "Letterlijk de leszin bij focussen: wat zou het gesprek nu nuttig maken? Reflectie + richting samen." },
+              { t: "Hoe is het thuis? Ik hoorde dat je moeder zich zorgen maakt.", q: "mid", pts: {en:0,fo:1,on:0,pl:0,s:2},
+                fb: "Valkuil doorvragen uit de les: je springt naar een ander eiland. Eerst afronden wat hij zelf inbrengt." },
+              { t: "School is inderdaad vaak saai. Laten we het daar verder niet over hebben.", q: "mid", pts: {en:1,fo:0,on:0,pl:0,s:2},
+                fb: "Je bondgenoot tegen school. Focus verdwijnt. Beter beide kanten van school én droom op tafel houden." }
+            ]
+          },
+          {
+            fase: "Stap 3 · Ontlokken",
+            doel: "Verandertaal: voor/naden, terug- en vooruitkijken, wensen, vertrouwen. Bevestig probleemherkenning. LSD + reflectie.",
+            client: "Als ik zo doorga, kom ik nergens. Alleen… ik ben vast niet goed genoeg voor game design. En zonder gamen val ik in slaap van verveling.",
+            hint: "Ambivalentie. Pak de change talk (‘nergens komen’) en het twijfelende kunnen. Niet duwen naar stoppen met gamen.",
+            options: [
+              { t: "Dan moet je gewoon minder gamen en je best doen op school. Anders wordt designer niks.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Oplossing + oordeel. Verandertaal stopt. Righting reflex." },
+              { t: "Een deel van jou ziet: zo kom ik nergens. En een deel twijfelt of je het kunt. Wat zou game designer voor jou betekenen, over vijf jaar?", q: "good", pts: {en:1,fo:0,on:3,pl:0,s:9},
+                fb: "Dubbele reflectie + vooruitkijken. Dat vraagt de rubric: wensen, positieve uitspraken, eigen motivatie." },
+              { t: "Wanneer is het je eerder gelukt om iets vol te houden dat lastig was?", q: "good", pts: {en:0,fo:0,on:3,pl:0,s:8},
+                fb: "Lesvoorbeeld bij ontlokken: eerder gelukt gedrag. Versterkt vertrouwen in eigen kunnen (rubric)." },
+              { t: "Waarom denk je dat je niet goed genoeg bent?", q: "mid", pts: {en:0,fo:0,on:1,pl:0,s:2},
+                fb: "Weer waarom. Voelt als bewijs leveren. Beter: ‘Wat maakt dat je daaraan twijfelt?’ of een reflectie." }
+            ]
+          },
+          {
+            fase: "Stap 4 · Plannen",
+            doel: "Híj noemt kleine stappen. Jij ondersteunt. Afronden: samenvatten, evalueren, passend afsluiten.",
+            client: "Misschien kan ik één vak serieuzer doen. Tekenen of ICT ofzo. Maar als het saai wordt, game ik toch.",
+            hint: "Kleine stap + terugvalzin. Plan van hem, plus samenvatting. Geen dwingend contract.",
+            options: [
+              { t: "Top. Vanaf morgen elk huiswerk af, telefoon in de keuken, deal?", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Jij maakt het plan te groot. Rubric: de cliënt vertelt hoe hij iets wil gaan doen." },
+              { t: "Ik vat samen: game design trekt je, school voelt nu zinloos, en één vak serieuzer is een eerste idee. Wat wordt je volgende kleine stap, en wat doe je als gamen weer wint?", q: "good", pts: {en:1,fo:1,on:1,pl:3,s:9},
+                fb: "Samenvatting (vaak vergeten in de les) + zijn stap + moeilijk moment. Daarna bedanken en afsluiten." },
+              { t: "Zal ik je mentor mailen dat je ICT wilt?", q: "mid", pts: {en:0,fo:0,on:0,pl:1,s:2},
+                fb: "Hulpvaardig, maar jij neemt de actie. Vraag eerst: ‘Wil je dat ik iets doe, of wil je zelf een zet zetten?’" },
+              { t: "Goed gesprek. Doei.", q: "mid", pts: {en:0,fo:0,on:0,pl:1,s:2},
+                fb: "Je sluit af, maar mist samenvatten, evalueren en een passend slot (rubric stap 4)." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "dennis",
+        title: "Casus 2 · Dennis · drinken",
+        who: "Dennis, 38 jaar. Elke avond een paar bier om af te schakelen. Partner maakt zich zorgen. Hij minimaliseert én zegt dat hij het misschien eens moet proberen. Fase: tussen erkenning en verkenning.",
+        steps: [
+          {
+            fase: "Stap 1 · Engageren",
+            doel: "Geen label ‘alcoholist’. Erken gemengde gevoelens. Veiligheid.",
+            client: "Het valt wel mee. Ik drink niet zoveel als sommige anderen. Jullie doen net of ik een probleem heb.",
+            hint: "Ontkenning + erkenning door elkaar. Niet debatteren over hoeveelheid.",
+            options: [
+              { t: "Als je partner zich zorgen maakt, ís het een probleem. Punt.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Label + overnemen. Hij gaat verdedigen. Geen acceptatie (rubric engageren)." },
+              { t: "Je wilt niet in de hoek van ‘probleemdrinker’. Dat snap ik. Fijn dat je toch komt praten. Hoe is het om hierover te zitten?", q: "good", pts: {en:3,fo:0,on:0,pl:0,s:9},
+                fb: "Empathie en erkennen, zoals in de les. Relatie eerst." },
+              { t: "Waarom drink je elke avond als je weet dat het ongezond is?", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Waarom-vraag + oordeel. Klassieke valkuil." },
+              { t: "Hoeveel glazen precies, maandag tot zondag?", q: "mid", pts: {en:0,fo:1,on:0,pl:0,s:2},
+                fb: "Verhoor. Feiten later, als hij zelf het onderwerp draagt." }
+            ]
+          },
+          {
+            fase: "Stap 2 · Focussen",
+            doel: "Samen een richting: minderen, ontspannen, relatie — niet jij die ‘stoppen’ kiest.",
+            client: "Zonder die biertjes kan ik de stress van werk niet kwijt. Tegelijk… misschien moet ik het toch eens proberen.",
+            hint: "Ambivalentie is de focus, niet meteen een stappenplan.",
+            options: [
+              { t: "We maken vandaag een stopplan. Koude turkey is het beste.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Te vroeg plannen én jij kiest het doel. Slaat focussen over." },
+              { t: "Dus bier helpt bij stress, en een deel van jou wil het toch eens anders proberen. Waar wil jij dat we het nú over hebben: minderen, stress, of wat het thuis doet?", q: "good", pts: {en:1,fo:3,on:1,pl:0,s:9},
+                fb: "Samen focus kiezen. Open vraag, reflectie, leefgebieden (rubric stap 2)." },
+              { t: "Je partner heeft gelijk, laten we het over jullie relatie hebben.", q: "mid", pts: {en:0,fo:1,on:0,pl:0,s:2},
+                fb: "Jij schuift het leefgebied. Vraag hem wat centraal mag staan." },
+              { t: "Oké. Hoe is het op je werk verder?", q: "mid", pts: {en:0,fo:0,on:0,pl:0,s:1},
+                fb: "Doorvragen naar een ander eiland. Eerst de knoop bier/stress/proberen vasthouden." }
+            ]
+          },
+          {
+            fase: "Stap 3 · Ontlokken",
+            doel: "Voor- en nadelen, terug- en vooruitkijken, voornemens laten uitspreken. Bevestig change talk.",
+            client: "Als ik mindere, slaap ik vast beter. Alleen word ik dan die saaie op verjaardagen. En ontspannen? Geen idee hoe.",
+            hint: "Change talk (slapen) + sustain (saai / geen andere coping). Vergroot de change talk.",
+            options: [
+              { t: "Saaie mensen houden tenminste hun relatie.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Sarcasme. Relatie stuk. Nooit doen." },
+              { t: "Beter slapen trekt je. Wat zouden nog meer voordelen voor jou zijn als de avonden anders liepen?", q: "good", pts: {en:0,fo:0,on:3,pl:0,s:9},
+                fb: "Lesvraag-achtig ontlokken: voordelen voor hém. Positieve uitspraken stimuleren." },
+              { t: "Wat zijn de gevolgen als je dit nog tien jaar zo doet?", q: "good", pts: {en:0,fo:0,on:2,pl:0,s:7},
+                fb: "Vooruitkijken uit de les. Werkt, mits toon zacht blijft en jij het antwoord niet invult." },
+              { t: "Zal ik uitleggen wat alcohol met slaap en stress doet?", q: "mid", pts: {en:0,fo:0,on:0,pl:0,s:1},
+                fb: "Informatie dumpen. Eerst toestemming: ‘Wil je horen wat we vaak zien?’ Anders blijf je ontlokken." }
+            ]
+          },
+          {
+            fase: "Stap 4 · Plannen",
+            doel: "Kleine, haalbare stap van Dennis. Strategie bij een moeilijk moment. Samenvatten en afronden.",
+            client: "Misschien twee avonden zonder. Maar na een rotvergadering grijp ik toch naar een fles.",
+            hint: "Zijn idee + risico. Ondersteun, vul niet aan met jouw ideale schema.",
+            options: [
+              { t: "Twee avonden is te weinig. Ik zet je op nul plus een app.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Regie overnemen. Plan moet van hem blijven." },
+              { t: "Ik vat samen: bier helpt bij stress, beter slapen trekt je, twee avonden zonder is jouw eerste zet. Wat wordt je strategie na een rotvergadering?", q: "good", pts: {en:1,fo:1,on:1,pl:3,s:9},
+                fb: "Leszin bij plannen: wat doe je als het moeilijk is? Plus samenvatting en daarna evalueren/afsluiten." },
+              { t: "Goed zo. Volgende week checken we of je braaf was.", q: "mid", pts: {en:0,fo:0,on:0,pl:1,s:2},
+                fb: "‘Braaf’ is extern en betuttelend. Autonome motivatie wordt kleiner." },
+              { t: "Wil je dat we samen één backup bedenken voor na die vergadering, of wil je daar zelf over nadenken?", q: "good", pts: {en:1,fo:0,on:1,pl:3,s:8},
+                fb: "Keuze geven = autonomie vergroten (les: betekenisvolle keuzes)." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "karim",
+        title: "Casus 3 · Karim · gezin",
+        who: "Karim, 27 jaar. Vriendin en baby. Spanning met ouders. Hij vermijdt het gesprek, stress en schuld groeien. Fase: erkenning van het probleem, actie wordt uitgesteld.",
+        steps: [
+          {
+            fase: "Stap 1 · Engageren",
+            doel: "Veiligheid. Niet collusie tegen de ouders, niet preken dat hij ‘gewoon moet bellen’.",
+            client: "Ik kom alleen omdat het thuis hoog oploopt. Met mijn ouders praten heeft toch geen zin. Dan komt er ruzie.",
+            hint: "Conflictvermijding. Eerst erkennen hoe zwaar dat voelt.",
+            options: [
+              { t: "Je bent vader nu. Je móet dit gesprek met je ouders voeren.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Moeten = externe druk. Autonome motivatie daalt." },
+              { t: "Het klinkt als een knoop: je wilt geen ruzie, en de spanning wordt juist groter. Wat rot dat het zo trekt.", q: "good", pts: {en:3,fo:0,on:1,pl:0,s:9},
+                fb: "Empathie en erkennen (les: knoop in je maag). Relatie en acceptatie." },
+              { t: "Waarom durf je het niet gewoon te zeggen?", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Waarom + ‘durf je niet’. Beschaamt. Fout volgens les én rubric." },
+              { t: "Je ouders overdrijven waarschijnlijk. Ouders doen dat vaker.", q: "mid", pts: {en:1,fo:0,on:0,pl:0,s:3},
+                fb: "Bondgenoot tegen ouders. Later lastig. Valideer Karim, val het gezin niet af." }
+            ]
+          },
+          {
+            fase: "Stap 2 · Focussen",
+            doel: "Samen het gespreksonderwerp kiezen: relatie ouders, schuld, tijd, vermijden…",
+            client: "Ze zeggen dat ik nooit kom. Alsof de baby en mijn vriendin er niet toe doen. Ik wil geen ruzie, maar ik wil ook niet steeds de lul zijn.",
+            hint: "Meerdere leefgebieden. Vraag wat nú centraal mag staan.",
+            options: [
+              { t: "We gaan oefenen hoe je je vader confronteert. Dat is de enige weg.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Jij kiest doel en middel. Geen samen focussen." },
+              { t: "Ik hoor loyaliteit naar je gezin nú, en pijn om hoe je ouders het zien. Wat zou dit gesprek voor jou nuttig maken?", q: "good", pts: {en:1,fo:3,on:1,pl:0,s:9},
+                fb: "Focusvraag uit de les + reflectie. Rubric: samen doel, leefgebied onderzoeken." },
+              { t: "Hoe is de band met je vriendin verder?", q: "mid", pts: {en:0,fo:1,on:0,pl:0,s:2},
+                fb: "Ander eiland. Eerst afronden wat hij zelf neerlegt." },
+              { t: "Dus het onderwerp is je ouders. Klaar.", q: "mid", pts: {en:0,fo:1,on:0,pl:0,s:3},
+                fb: "Bijna. Check bij hém of dat de focus is, in plaats van te sluiten." }
+            ]
+          },
+          {
+            fase: "Stap 3 · Ontlokken",
+            doel: "Verandertaal over de relatie die hij wél wil, niet alleen over angst.",
+            client: "Als ik niks zeg, blijft het zeuren. Als ik wél iets zeg, word ik het zwarte schaap. Soms denk ik: ik wil dat mijn dochter later ziet dat ik rustig kan praten.",
+            hint: "Prachtige change talk over vader zijn. Daar blijven.",
+            options: [
+              { t: "Precies, dus je belt vanavond. Klaar.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Je grijpt change talk en maakt er een bevel van." },
+              { t: "Dat beeld van jouw dochter raakt je. Wat zou ‘rustig praten’ voor jou betekenen, richting je ouders?", q: "good", pts: {en:1,fo:0,on:3,pl:0,s:9},
+                fb: "Wens vergroten, eigen woorden. Bevestig positieve uitspraak (rubric ontlokken)." },
+              { t: "Wanneer is het je eerder gelukt om een lastig gesprek wél aan te gaan?", q: "good", pts: {en:0,fo:0,on:3,pl:0,s:8},
+                fb: "Lesvraag: eerder gelukt gedrag. Vertrouwen in eigen kunnen." },
+              { t: "Je vermijdt gewoon. Dat is het probleem.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Label. Geen LSD, geen reflectie." }
+            ]
+          },
+          {
+            fase: "Stap 4 · Plannen",
+            doel: "Kleine stap van Karim. Moeilijk moment. Samenvatten, evalueren, afsluiten.",
+            client: "Misschien eerst een appje. Geen bezoek nog. Als mijn vader giftig reageert, blokkeer ik weer.",
+            hint: "Zijn tempo. Help het moeilijk moment, zonder het appje af te keuren als ‘te weinig’.",
+            options: [
+              { t: "Een appje is te slap. Je moet langsgaan.", q: "bad", pts: {en:0,fo:0,on:0,pl:0,s:0},
+                fb: "Jij beoordeelt de stap. Autonomie weg." },
+              { t: "Ik vat samen: je wilt geen ruzie, je wilt dat je dochter een vader ziet die kan praten, en een appje is jouw eerste zet. Wat doe je als het antwoord giftig voelt?", q: "good", pts: {en:1,fo:1,on:1,pl:3,s:9},
+                fb: "Samenvatten + zijn plan + strategie bij tegenslag. Daarna: hoe was dit gesprek voor je, en netjes afronden." },
+              { t: "Zal ik het appje voor je schrijven?", q: "mid", pts: {en:0,fo:0,on:0,pl:1,s:2},
+                fb: "Te hulpvaardig. Vraag of hij een zin wil oefenen, niet of jij het overneemt." },
+              { t: "Goed. We zijn klaar.", q: "mid", pts: {en:0,fo:0,on:0,pl:1,s:2},
+                fb: "Mist evaluatie en passend slot: bedanken, kort teruggeven wat hij zelf heeft gezet." }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const state = {
+      screen: "home",
+      caseIndex: 0,
+      step: 0,
+      scores: { en: 0, fo: 0, on: 0, pl: 0, s: 0 },
+      max: { en: 0, fo: 0, on: 0, pl: 0, s: 0 },
+      last: null
+    };
+
+    function $(sel) { return document.querySelector(sel); }
+
+    function updateHud() {
+      const totalSteps = CASES.reduce((n, c) => n + c.steps.length, 0);
+      const done = state.screen === "home" ? 0 : (state.caseIndex * 2 + state.step + (state.last ? 1 : 0));
+      const fase = (state.screen === "play" && currentCase().steps[state.step]) ? currentCase().steps[state.step].fase.split("·")[0].trim() : "";
+      $("#hud-case").textContent = state.screen === "home" ? "Start" : (state.screen === "end" ? "Afronding" : (fase || "Gesprek"));
+      $("#hud-score").textContent = "Score " + state.scores.s;
+    }
+
+    function render() {
+      updateHud();
+      const app = $("#app");
+      if (state.screen === "home") app.innerHTML = viewHome();
+      else if (state.screen === "end") app.innerHTML = viewEnd();
+      else app.innerHTML = viewStep();
+      bind();
+    }
+
+    function viewHome() {
+      return `
+        <div class="kicker">Oefenspel · 4 stappen · eindopdracht-casussen</div>
+        <p class="client">Speel een kort motiverend gesprek: engageren, focussen, ontlokken, plannen. Kies steeds de reactie die past bij de fase én bij de rubric van de eindopdracht.</p>
+        <p class="meta">Let op valkuilen uit de les: waarom-vraag, regie overnemen, samenvatting vergeten, wegspringen met doorvragen.</p>
+        <div class="grid2">
+          <div class="choice-card" data-go="play">
+            <h3>Hele ronde</h3>
+            <p class="small">Amir, Dennis en Karim achter elkaar. ± 15 minuten.</p>
+          </div>
+          <div class="choice-card" data-pick="0">
+            <h3>Amir · school</h3>
+            <p class="small">15 jaar, spijbelen, gamen, droom game designer.</p>
+          </div>
+          <div class="choice-card" data-pick="1">
+            <h3>Dennis · drinken</h3>
+            <p class="small">38 jaar, avondbiertjes, partner maakt zich zorgen.</p>
+          </div>
+          <div class="choice-card" data-pick="2">
+            <h3>Karim · gezin</h3>
+            <p class="small">27 jaar, vermijdt gesprek met ouders, baby thuis.</p>
+          </div>
+        </div>
+        <p class="small" style="margin-top:16px">Tip: speel eerst één casus klassikaal. In de eindopname moeten studenten zelf formuleren; dit spel traint de keuzes per fase.</p>
+      `;
+    }
+
+    function currentCase() { return CASES[state.caseIndex]; }
+    function currentStep() { return currentCase().steps[state.step]; }
+
+    function viewStep() {
+      const c = currentCase();
+      const s = currentStep();
+      let html = `
+        <div class="kicker">${c.title} · ${s.fase}</div>
+        <p class="meta">${c.who}</p>
+        <p class="client">“${s.client}”</p>
+        <p class="meta"><strong>${s.doel}</strong> ${s.hint}</p>
+      `;
+      if (!state.last) {
+        html += s.options.map((o, i) => `<button class="opt" data-opt="${i}">${o.t}</button>`).join("");
+      } else {
+        const o = s.options[state.last.i];
+        html += s.options.map((opt, i) => {
+          const mark = i === state.last.i ? (opt.q === "good" ? " ✓" : opt.q === "mid" ? " ~" : " ×") : "";
+          return `<button class="opt" disabled>${opt.t}${mark}</button>`;
+        }).join("");
+        html += `<div class="fb ${o.q}"><div class="tag">${o.q === "good" ? "Sterke MI-zet" : o.q === "mid" ? "Half op koers" : "Righting reflex / valkuil"}</div>${o.fb}</div>`;
+        html += `<div class="row"><button class="cta" data-next="1">Volgende</button></div>`;
+      }
+      return html;
+    }
+
+    function viewEnd() {
+      const pct = (k) => {
+        const m = state.max[k] || 1;
+        return Math.round((state.scores[k] / m) * 100);
+      };
+      const tips = [];
+      if (pct("en") < 70) tips.push("Engageren: eerst veiligheid en erkenning. Geen waarom-vraag, geen plan, geen boodschap van ouders/partner.");
+      if (pct("fo") < 70) tips.push("Focussen: vraag wat het gesprek nú nuttig maakt. Bepaal het doel samen, spring niet naar een ander eiland.");
+      if (pct("on") < 70) tips.push("Ontlokken: blijf bij verandertaal (wens, kunnen, redenen). Bevestig die zinnen. Vul de motivering niet in.");
+      if (pct("pl") < 70) tips.push("Plannen: kleine stap van de cliënt, strategie bij tegenslag, samenvatten, evalueren, netjes afronden.");
+      if (!tips.length) tips.push("Sterke ronde. Volgende oefening: zelf een zin formuleren per fase, zoals in de 5-minutenopname.");
+      return `
+        <div class="kicker">Afronding</div>
+        <p class="client">Je score: ${state.scores.s} van ${state.max.s} punten.</p>
+        <div class="bars">
+          <div><div class="bar-label"><span>Engageren</span><span>${pct("en")}%</span></div><div class="track"><div class="fill en" style="width:${pct("en")}%"></div></div></div>
+          <div><div class="bar-label"><span>Focussen</span><span>${pct("fo")}%</span></div><div class="track"><div class="fill fo" style="width:${pct("fo")}%"></div></div></div>
+          <div><div class="bar-label"><span>Ontlokken</span><span>${pct("on")}%</span></div><div class="track"><div class="fill on" style="width:${pct("on")}%"></div></div></div>
+          <div><div class="bar-label"><span>Plannen</span><span>${pct("pl")}%</span></div><div class="track"><div class="fill pl" style="width:${pct("pl")}%"></div></div></div>
+        </div>
+        <p class="meta">Wat je kunt meenemen:</p>
+        <ul class="tips">${tips.map(t => `<li>${t}</li>`).join("")}</ul>
+        <div class="row">
+          <button class="cta" data-go="play">Opnieuw de ronde</button>
+          <button class="cta secondary" data-home="1">Terug naar start</button>
+        </div>
+      `;
+    }
+
+    function resetScores() {
+      state.scores = { en: 0, fo: 0, on: 0, pl: 0, s: 0 };
+      state.max = { en: 0, fo: 0, on: 0, pl: 0, s: 0 };
+      state.last = null;
+      state.step = 0;
+    }
+
+    function computeMaxFor(cases) {
+      state.max = { en: 0, fo: 0, on: 0, pl: 0, s: 0 };
+      cases.forEach(cs => cs.steps.forEach(st => {
+        const best = st.options.reduce((a, b) => (b.pts.s > a.pts.s ? b : a));
+        KEYS.forEach(k => state.max[k] += best.pts[k] || 0);
+        state.max.s += best.pts.s;
+      }));
+    }
+
+    function bind() {
+      document.querySelectorAll("[data-go]").forEach(el => el.onclick = () => {
+        state.only = null;
+        state.caseIndex = 0; state.step = 0; state.screen = "play"; state.last = null;
+        resetScores(); computeMaxFor(CASES); render();
+      });
+      document.querySelectorAll("[data-pick]").forEach(el => el.onclick = () => {
+        const i = Number(el.getAttribute("data-pick"));
+        state.only = i;
+        state.caseIndex = i; state.step = 0; state.screen = "play"; state.last = null;
+        resetScores(); computeMaxFor([CASES[i]]); render();
+      });
+      document.querySelectorAll("[data-home]").forEach(el => el.onclick = () => {
+        state.screen = "home"; render();
+      });
+      document.querySelectorAll("[data-opt]").forEach(el => el.onclick = () => {
+        const i = Number(el.getAttribute("data-opt"));
+        const o = currentStep().options[i];
+        KEYS.forEach(k => state.scores[k] += o.pts[k] || 0);
+        state.scores.s += o.pts.s;
+        state.last = { i }; render();
+      });
+      document.querySelectorAll("[data-next]").forEach(el => el.onclick = () => {
+        state.last = null;
+        if (state.step < currentCase().steps.length - 1) {
+          state.step += 1;
+        } else if (state.only == null && state.caseIndex < CASES.length - 1) {
+          state.caseIndex += 1; state.step = 0;
+        } else {
+          state.screen = "end";
+        }
+        render();
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>
