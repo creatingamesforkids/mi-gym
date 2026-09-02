@@ -1,0 +1,3 @@
+Vervang index.html door het bestand mi-oefenspel.html (hernoem naar index.html).
+Daarna: Settings → Pages → Deploy from a branch → main → / (root) → Save.
+Link: https://creatingamesforkids.github.io/mi-gym/
