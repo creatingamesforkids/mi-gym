@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rollenspel Amir – motiverende gespreksvoering</title>
+  <style>
+    :root { --bg:#f7f4ef; --paper:#fff; --ink:#1a1814; --muted:#6b645c; --line:#e8e2d8; --good:#1e6b45; --good-bg:#e8f6ee; --mid:#9a6a15; --mid-bg:#fdf6e8; --bad:#9b2c2c; --bad-bg:#fdeaea; --accent:#2c4a7c; }
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;}
+    .wrap{max-width:800px;margin:0 auto;padding:20px 16px 60px;}
+    h1{font-size:1.5rem;margin:0 0 6px;}
+    .subtitle{color:var(--muted);margin:0 0 24px;}
+    .scene{display:flex;gap:20px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px;}
+    .video-wrap{flex:0 0 320px;}
+    video{width:100%;border-radius:12px;background:#000;}
+    .dialogue{flex:1;}
+    .phase{font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+    .client{font-size:1.1rem;font-style:italic;margin:8px 0 12px;}
+    button.opt{display:block;width:100%;text-align:left;background:#faf8f5;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:8px 0;font:inherit;cursor:pointer;}
+    button.opt:hover{background:#fff;}
+    button.opt:disabled{opacity:.65;cursor:default;}
+    button.cta{display:block;width:100%;background:var(--accent);color:white;border:0;border-radius:12px;padding:14px;font:inherit;font-weight:600;cursor:pointer;margin-top:12px;}
+    .fb{margin-top:14px;padding:14px;border-radius:12px;}
+    .fb.good{background:var(--good-bg);color:#145c38;}
+    .fb.mid{background:var(--mid-bg);color:#7a5210;}
+    .fb.bad{background:var(--bad-bg);color:#7a2222;}
+    .score{font-size:.82rem;color:var(--muted);text-align:right;margin-bottom:8px;}
+    footer{margin-top:32px;font-size:.78rem;color:var(--muted);text-align:center;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Rollenspel Amir – de 4 fases</h1>
+      <p class="subtitle">15 jaar, spijbelt en gamed veel. Oefen engageren, focussen, ontlokken en plannen.</p>
+    </header>
+    <main id="app"></main>
+    <footer>Oefening voor MBO Sociaal Werk niveau 4 · geen echte cliëntgegevens</footer>
+  </div>
+  <audio id="player"></audio>
+
+  <script>
+    const CASE = {
+      title: "Amir · school",
+      video: "media/pVtdM.mp4",
+      amirAudios: ["media/amir1.mp3","media/amir2.mp3","media/amir3.mp3","media/amir4.mp3"],
+      helperAudios: ["media/helper1.mp3","media/helper2.mp3","media/helper3.mp3","media/helper4.mp3"],
+      steps: [
+        {
+          fase: "Stap 1 · Engageren",
+          client: "Wéér zo’n gesprek. School kan me niks schelen. En bemoei je niet met mijn kamer, daar gaat het toch om gamen.",
+          options: [
+            { t: "Waarom spijbel je dan als je later iets cools wilt worden?", q: "bad", fb: "De waarom-vraag klinkt als verwijt en activeert reactance. Bij adolescenten is weerstand vaak normaal. Beter: erken de weerstand en geef autonomie." },
+            { t: "Ik hoor dat je hier niet op zit te wachten. Dat snap ik. Jij bepaalt wat je deelt. Hoe is het voor jou om hier te zitten?", q: "good", fb: "Goed: je toont acceptatie en geeft autonomie terug. Relatie en veiligheid eerst, voordat je over school of gamen praat." },
+            { t: "Laten we meteen afspreken dat je voortaan naar alle lessen gaat.", q: "bad", fb: "Te vroeg plannen en regie overnemen. Dat botst met de autonomiebehoefte van een 15-jarige." },
+            { t: "Vervelend voor je moeder. Zij belt steeds omdat ze zich zorgen maakt.", q: "mid", fb: "Je praat over hem via moeder. Werk eerst aan de relatie met Amir zelf." }
+          ]
+        },
+        {
+          fase: "Stap 2 · Focussen",
+          client: "Game designer, dát zou cool zijn. School is alleen saai en ze zeuren. Thuis zeggen ze dat ik lui ben.",
+          options: [
+            { t: "We gaan het over je spijbelen hebben, want daar ligt het probleem.", q: "bad", fb: "Jij bepaalt het doel. Samen focussen: wat zou dit gesprek voor hém nuttig maken?" },
+            { t: "Ik hoor game designer, saaie school en het label ‘lui’. Wat zou dit gesprek voor jou nuttig maken?", q: "good", fb: "Goed: reflectie + samen de richting bepalen. Hij houdt de regie over het onderwerp." },
+            { t: "Hoe is het thuis? Ik hoorde dat je moeder zich zorgen maakt.", q: "mid", fb: "Je springt naar een ander onderwerp. Eerst afronden wat hij zelf inbrengt." },
+            { t: "School is inderdaad vaak saai. Laten we het daar verder niet over hebben.", q: "mid", fb: "Je kiest partij. Houd beide kanten (school én droom) op tafel." }
+          ]
+        },
+        {
+          fase: "Stap 3 · Ontlokken",
+          client: "Als ik zo doorga, kom ik nergens. Alleen… ik ben vast niet goed genoeg voor game design. En zonder gamen val ik in slaap van verveling.",
+          options: [
+            { t: "Dan moet je gewoon minder gamen en je best doen op school. Anders wordt designer niks.", q: "bad", fb: "Oplossing + oordeel. Righting reflex. Verandertaal stopt." },
+            { t: "Een deel van jou ziet: zo kom ik nergens. Een ander deel twijfelt of je het kunt. Wat zou game designer voor jou betekenen over vijf jaar?", q: "good", fb: "Goed: dubbele reflectie + vooruitkijken. Je ontlokt zijn eigen motivatie zonder de droom af te pakken. Gamen vult nu competentie en autonomie die school niet geeft." },
+            { t: "Wanneer is het je eerder gelukt om iets vol te houden dat lastig was?", q: "good", fb: "Goed: eerder gelukt gedrag versterkt het gevoel van competentie." },
+            { t: "Waarom denk je dat je niet goed genoeg bent?", q: "mid", fb: "Weer een waarom-vraag. Beter een reflectie of: ‘Wat maakt dat je daaraan twijfelt?’" }
+          ]
+        },
+        {
+          fase: "Stap 4 · Plannen",
+          client: "Misschien kan ik één vak serieuzer doen. Tekenen of ICT ofzo. Maar als het saai wordt, game ik toch.",
+          options: [
+            { t: "Top. Vanaf morgen elk huiswerk af, telefoon in de keuken, deal?", q: "bad", fb: "Jij maakt het plan te groot. De cliënt moet zelf de stappen noemen." },
+            { t: "Ik vat samen: game design trekt je, school voelt nu zinloos, en één vak serieuzer is een eerste idee. Wat wordt je volgende kleine stap, en wat doe je als gamen weer wint?", q: "good", fb: "Goed: samenvatting + zijn eigen stap + moeilijk moment. Hij blijft eigenaar." },
+            { t: "Zal ik je mentor mailen dat je ICT wilt?", q: "mid", fb: "Jij neemt de actie over. Vraag eerst of hij zelf iets wil doen." },
+            { t: "Goed gesprek. Doei.", q: "mid", fb: "Je sluit af, maar mist de samenvatting en evaluatie." }
+          ]
+        }
+      ]
+    };
+
+    const state = { step: 0, last: null, score: 0, total: 0 };
+
+    function playAmir() {
+      const player = document.getElementById("player");
+      if (CASE.amirAudios[state.step]) {
+        player.src = CASE.amirAudios[state.step];
+        player.play().catch(() => {});
+      }
+      const v = document.getElementById("sceneVideo");
+      if (v && CASE.video) { v.src = CASE.video; v.play().catch(()=>{}); }
+    }
+    function playHelper() {
+      const player = document.getElementById("player");
+      if (CASE.helperAudios[state.step]) {
+        player.src = CASE.helperAudios[state.step];
+        player.play().catch(() => {});
+      }
+    }
+
+    function render() {
+      const app = document.getElementById("app");
+      const s = CASE.steps[state.step];
+      const answered = state.last !== null;
+      const o = answered ? s.options[state.last.i] : null;
+      app.innerHTML = `
+        <div class="score">Stap ${state.step + 1} van 4 · ${CASE.title}</div>
+        <div class="scene">
+          <div class="video-wrap">
+            <video id="sceneVideo" controls playsinline loop muted></video>
+          </div>
+          <div class="dialogue">
+            <div class="phase">${s.fase}</div>
+            <div class="client">“${s.client}”</div>
+            <button class="cta" id="listenAmir" style="margin-bottom:12px">▶ Amir spreekt</button>
+            ${s.options.map((opt, i) => `<button class="opt" data-opt="${i}" ${answered ? "disabled" : ""}>${opt.t}</button>`).join("")}
+            ${answered ? `
+              <div class="fb ${o.q}">
+                <div class="why">${o.q === "good" ? "Goed" : o.q === "mid" ? "Matig" : "Minder goed"}</div>
+                ${o.fb}
+              </div>
+              <button class="cta" data-next="1">Volgende</button>
+            ` : ""}
+          </div>
+        </div>
+      `;
+      document.getElementById("listenAmir").onclick = playAmir;
+      setTimeout(playAmir, 300);
+    }
+
+    function bind() {
+      document.querySelectorAll("[data-opt]").forEach(el => {
+        el.onclick = () => {
+          if (state.last !== null) return;
+          const i = Number(el.dataset.opt);
+          const o = CASE.steps[state.step].options[i];
+          state.last = { i };
+          if (o.q === "good") state.score += 1;
+          state.total += 1;
+          playHelper();
+          render();
+          bind();
+        };
+      });
+      document.querySelectorAll("[data-next]").forEach(el => {
+        el.onclick = () => {
+          state.last = null;
+          if (state.step < 3) state.step++;
+          else {
+            document.getElementById("app").innerHTML = `<div class="scene"><h2>Klaar</h2><p>Score: ${state.score} / ${state.total}</p><button class="cta" onclick="location.reload()">Opnieuw</button></div>`;
+            return;
+          }
+          render();
+          bind();
+        };
+      });
+    }
+
+    render();
+    bind();
+  </script>
+</body>
+</html>
