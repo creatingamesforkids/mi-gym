@@ -94,12 +94,16 @@
 
     function playAmir() {
       const player = document.getElementById("player");
+      const v = document.getElementById("sceneVideo");
       if (CASE.amirAudios[state.step]) {
         player.src = CASE.amirAudios[state.step];
         player.play().catch(() => {});
       }
-      const v = document.getElementById("sceneVideo");
-      if (v && CASE.video) { v.src = CASE.video; v.play().catch(()=>{}); }
+      if (v && CASE.video) {
+        v.src = CASE.video;
+        v.muted = false;
+        v.play().catch(() => {});
+      }
     }
     function playHelper() {
       const player = document.getElementById("player");
@@ -118,12 +122,11 @@
         <div class="score">Stap ${state.step + 1} van 4 · ${CASE.title}</div>
         <div class="scene">
           <div class="video-wrap">
-            <video id="sceneVideo" controls playsinline loop muted></video>
+            <video id="sceneVideo" controls playsinline loop></video>
           </div>
           <div class="dialogue">
             <div class="phase">${s.fase}</div>
             <div class="client">“${s.client}”</div>
-            <button class="cta" id="listenAmir" style="margin-bottom:12px">▶ Amir spreekt</button>
             ${s.options.map((opt, i) => `<button class="opt" data-opt="${i}" ${answered ? "disabled" : ""}>${opt.t}</button>`).join("")}
             ${answered ? `
               <div class="fb ${o.q}">
@@ -135,8 +138,8 @@
           </div>
         </div>
       `;
-      document.getElementById("listenAmir").onclick = playAmir;
-      setTimeout(playAmir, 300);
+      // Start video + geluid automatisch
+      setTimeout(playAmir, 400);
     }
 
     function bind() {
